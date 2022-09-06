@@ -9,8 +9,31 @@ from datetime import datetime, timedelta
 import os
 from winotify import Notification
 
+def sleeptime(hour, min, sec):
+    return hour * 3600 + min * 60 + sec
 
+
+def push(title, msg, app_id, urlurl):
+    title = title
+    msg = msg
+    app_id = app_id
+    urlurl = urlurl
+
+    # r"D:\Python\demo\wechat.png"
+    toast = Notification(app_id=app_id, title=title, msg=msg, icon=r"D:\Python\demo\wechat.png")
+    toast.add_actions(label="查看详情",
+                      launch=f"{urlurl}")
+    toast.show()
+    
 class bzMonitor():
+    
+    def echoMsg(self, level, msg):
+        if level == 'Info':
+            print('[Info] %s' % msg)
+
+        elif level == 'Error':
+            print('[Error] %s' % msg)
+            
     def __init__(self, ):
         self.reqHeaders = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0',
@@ -20,14 +43,9 @@ class bzMonitor():
             'Accept-Language': 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
         }
 
-        # 格式化输出
+        
 
-    def echoMsg(self, level, msg):
-        if level == 'Info':
-            print('[Info] %s' % msg)
-
-        elif level == 'Error':
-            print('[Error] %s' % msg)
+    
 
     # 获取各用户当前新闻数目
     def getBZQueue(self):
@@ -91,21 +109,7 @@ class bzMonitor():
             sys.exit()
 
 
-def sleeptime(hour, min, sec):
-    return hour * 3600 + min * 60 + sec
 
-
-def push(title, msg, app_id, urlurl):
-    title = title
-    msg = msg
-    app_id = app_id
-    urlurl = urlurl
-
-    # r"D:\Python\demo\wechat.png"
-    toast = Notification(app_id=app_id, title=title, msg=msg, icon=r"D:\Python\demo\wechat.png")
-    toast.add_actions(label="查看详情",
-                      launch=f"{urlurl}")
-    toast.show()
 
 
 if __name__ == '__main__':
